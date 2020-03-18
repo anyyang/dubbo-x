@@ -105,7 +105,7 @@ public class ZookeeperRegistry extends FailbackRegistry {
             logger.warn("Failed to close zookeeper client " + getUrl() + ", cause: " + e.getMessage(), e);
         }
     }
-
+    //todo zk 注册消费者
     @Override
     public void doRegister(URL url) {
         try {

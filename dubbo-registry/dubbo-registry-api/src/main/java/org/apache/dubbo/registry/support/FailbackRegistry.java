@@ -220,7 +220,7 @@ public abstract class FailbackRegistry extends AbstractRegistry {
     public ConcurrentMap<Holder, FailedNotifiedTask> getFailedNotified() {
         return failedNotified;
     }
-
+    //todo  将comsumer连接组测到zookeeper上
     @Override
     public void register(URL url) {
         super.register(url);

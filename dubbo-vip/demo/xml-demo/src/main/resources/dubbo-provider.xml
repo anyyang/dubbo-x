@@ -13,7 +13,8 @@
     <!--<dubbo:protocol name="http" server="servlet"/>-->
 
 <!--    <dubbo:config-center address="zookeeper://127.0.0.1:2181" />-->
-    <dubbo:registry address="zookeeper://192.168.1.212:2181" />
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+    <!-- <dubbo:registry address="zookeeper://192.168.1.212:2181" /> -->
     <!--<dubbo:registry address="redis://127.0.0.1:6379" />-->
 
     <!--不允许进行服务注册，通常在开发阶段和直连提供者一起使用-->

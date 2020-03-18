@@ -184,7 +184,7 @@ public class ConfigUtils {
 
     /**
      * System environment -> System properties
-     *
+     *  此处的key是DUBBO_IP_TO_REGISTRY = "DUBBO_IP_TO_REGISTRY";
      * @param key key
      * @return value
      */

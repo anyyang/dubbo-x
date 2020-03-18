@@ -352,8 +352,9 @@ public class RegistryProtocol implements Protocol {
             return proxyFactory.getInvoker((T) registry, type, url);
         }
 
-        // group="a,b" or group="*"
+        // group="a,b" or group="*"  todo 获取到url全部的参数
         Map<String, String> qs = StringUtils.parseQueryString(url.getParameterAndDecoded(REFER_KEY));
+       //todo  group 分组
         String group = qs.get(Constants.GROUP_KEY);
         if (group != null && group.length() > 0) {
             if ((COMMA_SPLIT_PATTERN.split(group)).length > 1 || "*".equals(group)) {
@@ -366,16 +367,19 @@ public class RegistryProtocol implements Protocol {
     private Cluster getMergeableCluster() {
         return ExtensionLoader.getExtensionLoader(Cluster.class).getExtension("mergeable");
     }
-
+   //todo 服务目录
     private <T> Invoker<T> doRefer(Cluster cluster, Registry registry, Class<T> type, URL url) {
         RegistryDirectory<T> directory = new RegistryDirectory<T>(type, url);
         directory.setRegistry(registry);
         directory.setProtocol(protocol);
         // all attributes of REFER_KEY
         Map<String, String> parameters = new HashMap<String, String>(directory.getUrl().getParameters());
+       //todo 再次更改url 组测消费者url到zookeeper上
         URL subscribeUrl = new URL(CONSUMER_PROTOCOL, parameters.remove(REGISTER_IP_KEY), 0, type.getName(), parameters);
         if (!ANY_VALUE.equals(url.getServiceInterface()) && url.getParameter(REGISTER_KEY, true)) {
-            registry.register(getRegisteredConsumerUrl(subscribeUrl, url));
+            URL registurl = getRegisteredConsumerUrl(subscribeUrl, url);
+            System.out.println("此处把消费者注册到了zk RegistryProtocol 注册点："+registurl);
+            registry.register(registurl);
         }
         directory.buildRouterChain(subscribeUrl);  // 2.7绑定各个监听器，包括动态配置中心，条件路由，标签路由，黑白名单路由
         // 这里会监听老目录

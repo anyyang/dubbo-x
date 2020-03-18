@@ -65,6 +65,9 @@ public class RouterChain<T> {
     public void initWithRouters(List<Router> builtinRouters) {
         this.builtinRouters = builtinRouters;
         this.routers = new CopyOnWriteArrayList<>(builtinRouters);
+        System.out.println("RouterChain initWithRouters");
+        routers.stream().forEach(router -> System.out.println(router.getUrl()));
+        System.out.println("RouterChain initWithRouters end");
         this.sort();
     }
 
